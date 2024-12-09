@@ -27,7 +27,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: ${{values.owner | dump}}
+  owner: ${{ values.owner | dump }}
   system: workshop-system-${{values.namespace}}
 ---
 apiVersion: backstage.io/v1alpha1
@@ -40,5 +40,5 @@ metadata:
     - openshift
     - workshop
 spec:
-  owner: ${{values.owner | dump}}
+  owner: ${{ values.owner | dump }}
 
