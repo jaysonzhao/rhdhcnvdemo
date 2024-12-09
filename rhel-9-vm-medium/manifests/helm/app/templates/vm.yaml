@@ -1,0 +1,56 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    {{- include "vm.labels" . | nindent 4 }}
+    {{- include "backstage.labels" . | nindent 4 }}
+spec:
+  dataVolumeTemplates:
+    - metadata:
+        name: rhel-9-private-mongoose-volume
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests: {}
+  instancetype:
+    name: u1.medium
+  preference:
+    name: rhel.9
+  running: true
+  template:
+    metadata:
+      labels:
+        {{- include "vm.labels" . | nindent 8 }}
+        {{- include "backstage.labels" . | nindent 8 }}   
+    spec:
+      domain:
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: rhel-9-private-mongoose-disk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+      nodeSelector:
+        node-role.kubernetes.io/metal: ''
+      tolerations:
+        - key: metal
+          operator: Exists
+      volumes:
+        - dataVolume:
+            name: rhel-9-private-mongoose-volume
+          name: rhel-9-private-mongoose-disk
+        - cloudInitConfigDrive:
+            userData: |
+              #cloud-config
+              user: cloud-user
+              password: 6paw-viiq-qyd6
+              chpasswd:
+                expire: false
+          name: cloudinitdisk

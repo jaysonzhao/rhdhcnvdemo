@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: software-templates
+  description: A collection of Backstage templates for devhub-mad
+spec:
+  type: url
+  targets:
+    - scaffolder-templates/rhel9-vm-medium/template.yaml
