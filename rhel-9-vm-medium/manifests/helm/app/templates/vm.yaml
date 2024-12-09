@@ -37,8 +37,6 @@ spec:
             - disk:
                 bus: virtio
               name: cloudinitdisk
-      nodeSelector:
-        node-role.kubernetes.io/metal: ''
       tolerations:
         - key: metal
           operator: Exists
