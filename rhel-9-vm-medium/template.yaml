@@ -48,6 +48,7 @@ spec:
           title: Owner
           type: string
           description: Owner of the component
+          default: user1
           ui:field: EntityPicker
           ui:options:
             catalogFilter:
@@ -71,7 +72,7 @@ spec:
         targetPath: ./source
         values:
           group: ${{parameters.group}}
-          owner: default/${{parameters.owner}}
+          owner: ${{parameters.owner}}
           cluster_id: ${{parameters.cluster_id}}
           namespace: ${{parameters.namespace}}
           component_id: ${{parameters.component_id}}
