@@ -36,3 +36,9 @@ oc apply -f ./hyperconverged.yaml
 
 ## You can find the VM config and console in a quick way.
 ![vmconfigpage](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/VMconfigpage.png?raw=true)
+
+
+
+## And you can open the VNC console as well
+
+![image-20241211115538546](/Users/haozhao/work/rhdhcnvdemo/img/README/image-20241211115538546.png)
