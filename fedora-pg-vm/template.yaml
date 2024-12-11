@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: pgsql-vm-medium-template
   title: PostgreSQL VM Template
-  description: creates a RHEL9 VM Medium
+  description: creates a PostgreSQL VM Medium
   tags:
     - pgsql-medium
     - vm
