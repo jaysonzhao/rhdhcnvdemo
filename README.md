@@ -41,4 +41,4 @@ oc apply -f ./hyperconverged.yaml
 
 ## And you can open the VNC console as well
 
-![image-20241211115538546](/Users/haozhao/work/rhdhcnvdemo/img/README/image-20241211115538546.png)
+![image-20241211115538546](./img/README/image-20241211115538546.png)
