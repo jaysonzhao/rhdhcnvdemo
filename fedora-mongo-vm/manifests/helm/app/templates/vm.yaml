@@ -49,6 +49,7 @@ spec:
         - cloudInitConfigDrive:
             userData: |
               #cloud-config
+              runcmd:
                 - setenforce 0
                 - systemctl stop firewalld
                 - mkfs -t btrfs /dev/vdc
