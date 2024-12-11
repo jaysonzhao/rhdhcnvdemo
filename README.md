@@ -42,3 +42,7 @@ oc apply -f ./hyperconverged.yaml
 ## And you can open the VNC console as well
 
 ![image-20241211115538546](./img/README/image-20241211115538546.png)
+
+### And MongoDB
+
+![image-20241211151820783](img/README/image-20241211151820783.png)
