@@ -25,3 +25,14 @@ oc apply -f ./hyperconverged.yaml
 
 
 ## import the template and create
+Find the GitLab and import the project
+![importprj](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/templateproj.png?raw=true)
+
+Register the Postgresql VM template in catalog
+![registertemplate](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/registerTemplate.png?raw=true)
+
+## create component from template
+![componentpage](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/provisionedvm.png?raw=true)
+
+You can find the VM config and console in a quick way.
+![vmconfigpage](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/VMconfigpage.png?raw=true)
