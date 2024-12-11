@@ -13,7 +13,7 @@ metadata:
     backstage.io/source-location: url:https://${{values.host}}/${{values.group}}/${{values.component_id}}
     gitlab.com/project-slug: ${{values.group}}/${{values.component_id}}
   tags:
-    - tomcat
+    - postgresql
     - vm
     - workshop
   links:
