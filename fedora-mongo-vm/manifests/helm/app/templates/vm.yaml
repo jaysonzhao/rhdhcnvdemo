@@ -1,0 +1,77 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    {{- include "vm.labels" . | nindent 4 }}
+    {{- include "backstage.labels" . | nindent 4 }}
+spec:
+  dataVolumeTemplates:
+    - metadata:
+        name: demovm-volume
+      spec:
+        preallocation: false
+        source:
+          pvc:
+            name: fedora-fee3d6a527c8
+            namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: 30Gi
+  instancetype:
+    name: u1.medium
+  preference:
+    name: fedora
+  running: true
+  template:
+    metadata:
+      labels:
+        {{- include "vm.labels" . | nindent 8 }}
+        {{- include "backstage.labels" . | nindent 8 }}   
+    spec:
+      domain:
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: demovm-private-mongoose-disk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+      tolerations:
+        - key: metal
+          operator: Exists
+      volumes:
+        - dataVolume:
+            name: demovm-volume
+          name: demovm-private-mongoose-disk
+        - cloudInitConfigDrive:
+            userData: |
+              #cloud-config
+                - setenforce 0
+                - systemctl stop firewalld
+                - mkfs -t btrfs /dev/vdc
+                - mkdir -p /var/lib/mongo/
+                - mkdir -p /var/log/mongodb/
+                - mount /dev/vdc /var/log/mongodb
+                - chown -R mongod:mongod /var/lib/mongo/
+                - chown -R mongod:mongod /var/log/mongodb/
+                - echo "[mongodb-org-8.0]" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - echo "name=MongoDB Repository" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - echo "baseurl=https://repo.mongodb.org/yum/redhat/9/mongodb-org/8.0/x86_64/" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - echo "gpgcheck=1" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - echo "enabled=1" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - echo "gpgkey=https://pgp.mongodb.com/server-8.0.asc" >> /etc/yum.repos.d/mongodb-org-8.0.repo
+                - dnf -y install mongodb-mongosh-shared-openssl3
+                - dnf -y install mongodb-org
+                - systemctl enable mongod.service
+                - systemctl start mongod.service
+                - sed -i 's/127\.0\.0\.1/0.0.0.0/g' /etc/mongod.conf
+                - systemctl restart mongod.service
+              ssh_pwauth: true
+              user: cloud-user
+              password: password
+              chpasswd:
+                expire: false
+          name: cloudinitdisk
