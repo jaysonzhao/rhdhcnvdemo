@@ -23,7 +23,11 @@ oc apply -f ./hyperconverged.yaml
 
 ![cnvenabled](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/cnvenabled.png?raw=true)
 
-
+# just for demo purpose
+、、、
+oc adm policy add-cluster-role-to-user cluster-admin user1
+oc adm groups add-users system:kubevirt-admin user1
+、、、
 # import the template and create
 ## Find the GitLab and import the project
 ![importprj](https://github.com/jaysonzhao/rhdhcnvdemo/blob/main/img/templateproj.png?raw=true)
